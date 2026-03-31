@@ -1,0 +1,25 @@
+import java.util.*;
+
+class Employee{
+  private String name="ram";
+  private int empid=12345;
+  private int salary=40000;
+  protected int salary2=5000000;
+   void display(){
+    System.out.println(name);
+    System.out.println(empid);
+    System.out.println(salary);
+  }
+}
+class company extends Employee{
+  public void details(){
+    System.out.println(salary2);
+    super.display();
+  }
+}
+public class Main{
+  public static void main(String[] args){
+    company c1=new company();
+    c1.details();
+  }
+}
