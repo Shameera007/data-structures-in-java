@@ -1,0 +1,97 @@
+import java.util.*;
+
+abstract class Account{
+    long Accnumber;
+    String name ;
+    String Branch_name;
+    String IFSC ;
+    long phnum;
+    double balance;
+    
+    Account(long Accnumber, String name, String Branch_name, String IFSC, long phnum, double balance ){
+        this.Accnumber  = Accnumber;
+        this.name = name;
+        this.Branch_name =Branch_name;
+        this.IFSC =IFSC;
+        this.phnum = phnum;
+        this.balance = balance;
+    }
+    abstract void deposit(double amt);
+    abstract void withdraw(double amt);
+    abstract void show();
+   abstract void change(String branch,String ifsc);
+}
+
+class BANK extends Account{
+    BANK(long Accnumber, String name, String Branch_name,String IFSC,long phnum,double balance){
+        super(Accnumber,name,Branch_name,IFSC,phnum,balance);
+    }
+    @Override
+    public void deposit(double amt){
+        balance += amt;
+        System.out.println("Deposited amt  : "+balance);
+    }
+    @Override
+    public void withdraw(double amt){
+        if(amt <= balance){
+            balance -= amt;
+            System.out.println("withdraw amt:" + amt);
+            System.out.println("Balance :"+balance);
+        }
+        else{
+            System.out.println("Insufficient balance*");
+        }
+    }
+    
+   
+    @Override
+    public void show(){
+      System.out.println("Account number: "+Accnumber);
+      System.out.println("name: "+name);
+      System.out.println("Branch_name"+Branch_name);
+      System.out.println("IFSC"+IFSC);
+      System.out.println("Phone number"+phnum);
+      System.out.println("Balance"+balance);
+    }
+    @Override
+    public void change(String branch,String ifsc){
+      System.out.println("Branch_name: "+branch);
+      this.Branch_name=branch;
+      this.IFSC=ifsc;
+       System.out.println("IFSC: "+ifsc);
+    }
+}
+public class Main{
+    public static void main(String args[]){
+      Scanner sc=new Scanner(System.in);
+        BANK b1 =  new BANK(363935,"Ram","SBI","SBIN900316",9786556,5500.45);
+     
+     
+     while(true){
+       System.out.println("Choose from 1 to 5\n");
+             int op=sc.nextInt();
+       switch(op){
+        case 1:
+          b1.deposit(1000);
+          break;
+        case 2:
+          b1.withdraw(2000);
+          break;
+        case 3:
+          b1.change("indian bank","ind1234");
+          break;
+        case 4:
+          b1.show();
+          break;
+        case 5: 
+          System.out.println("Exit");
+          sc.close();
+          return;
+        default:
+           System.out.print("invalid choice");
+       }   
+      }
+     
+        
+    }
+}
