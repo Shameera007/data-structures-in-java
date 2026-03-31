@@ -1,0 +1,40 @@
+import java.util.*;
+class Student {
+  String name;
+  int id;
+  String dept;
+  Student(String name,int id,String dept){
+    this.name=name;
+    this.id=id;
+    this.dept=dept;
+  }
+  void display(){
+    System.out.println("Name : "+name);
+    System.out.println("Id : "+id);
+    System.out.println("Dept : "+dept);
+  }
+  void show(){
+    System.out.println("I am from chennai");
+  }
+}
+class faculty extends Student{
+  faculty(String name,int id,String dept){
+    super(name,id,dept);//access constructor or method or variables in parent(Student class)class
+  }
+  void display2(){
+    System.out.println("Technical Trainer");
+  }
+  void printData(){
+    super.show();// use super only when u call parent from student
+  }
+}
+public class Main {
+    public static void main(String[] args) {
+    faculty f1=new faculty("Ram",98,"Mech");
+    f1.display();
+    f1.display2();
+    f1.show();//no need of super as it is main function
+    f1.printData();
+      
+    }
+}
