@@ -1,0 +1,73 @@
+import java.util.*;
+
+class Node {
+    int data;      
+    Node next;      
+   
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class Singly {
+    Node head,tail; 
+    Singly(){
+      head=null;
+      tail=null;
+    }
+        void create(int num){
+        Node newNode=new Node(num);
+        if(head==null){
+          head=newNode;
+          tail=newNode;
+        }
+       else{
+         tail.next=newNode;
+         tail=newNode;
+        }
+    }
+
+ 
+public void DeleteAtEnd(){
+  Node itr=head;
+  while(itr.next!=tail){
+    itr=itr.next;
+  }
+  itr.next=null;
+  tail=itr;
+}
+void deleteAtBegin(){
+  head=head.next;
+}
+    public void display() {
+      Node itr=head;
+      while(itr!=null){
+        System.out.print(itr.data+" ");
+        itr=itr.next;
+      }
+    }
+}
+
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        Singly s=new Singly();
+        int n=sc.nextInt();
+        int num;
+        for(int i=0;i<n;i++){
+          num=sc.nextInt();
+         s.create(num);
+        }
+       // s.create(num);
+        s.display();
+        s.DeleteAtEnd();
+        s.display();
+        s.deleteAtBegin();
+        s.display();
+    }
+}
+
+
+
