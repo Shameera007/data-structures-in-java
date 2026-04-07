@@ -1,0 +1,79 @@
+import java.util.*;
+class Node{
+  int data;
+  Node next;
+  Node prev;
+  Node(int data){
+    this.data=data;
+    this.next=null;
+    this.prev=null;
+  }
+}
+class Doubly{
+  Node head,tail;
+  Doubly(){
+    this.head=null;
+    this.tail=null;
+  }
+  void create(int num){
+    Node newNode=new Node(num);
+    if(head==null)
+    {
+      head=newNode;
+      tail=newNode;
+    }
+    else{
+     tail.next=newNode;
+   newNode.prev=tail;
+   tail=newNode;
+    }
+  }
+  void delete(int pos,int n){
+    if(pos==1){
+      head =head.next;
+      head.prev=null;
+    }
+    else if(pos==n){
+      tail=tail.prev;
+      tail.next=null;
+    }
+    else{
+      Node itr=head;
+      int cnt=0;
+      while(itr!=null){
+        cnt++;
+        if(cnt==pos){
+        itr.next.prev=itr.prev;
+        itr.prev.next=itr.next;
+        break;
+      }
+      itr=itr.next;
+    }
+  }
+}
+  void display(){
+    Node itr=head;
+    while(itr!=null){
+      System.out.println(itr.prev+" "+itr.data+" "+itr.next);
+      itr=itr.next;
+    }
+  }
+}
+
+public class Main {
+    public static void main(String[] args) {
+    Scanner sc=new Scanner(System.in);
+    int n=sc.nextInt();
+    int num;
+    Doubly d=new Doubly();
+    for(int i=0;i<n;i++){
+      num=sc.nextInt();
+      d.create(num);
+    }
+    
+    int pos=sc.nextInt();
+    d.delete(pos,n);
+    d.display();
+
+    }
+}
