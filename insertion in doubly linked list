@@ -1,0 +1,84 @@
+import java.util.*;
+class Node{
+  int data;
+  Node next;
+  Node prev;
+  Node(int data){
+    this.data=data;
+    this.next=null;
+    this.prev=null;
+  }
+}
+class Doubly{
+  Node head,tail;
+  Doubly(){
+    this.head=null;
+    this.tail=null;
+  }
+  void create(int num){
+    Node newNode=new Node(num);
+    if(head==null)
+    {
+      head=newNode;
+      tail=newNode;
+    }
+    else{
+     tail.next=newNode;
+   newNode.prev=tail;
+   tail=newNode;
+    }
+  }
+void insert(int val,int pos,int n){
+  Node newNode=new Node(val);
+  if(pos==1){
+    newNode.next=head;
+    head.prev=newNode;
+    head=newNode;
+  }
+  else if(pos==n+1){
+   tail.next=newNode;
+   newNode.prev=tail;
+   tail=newNode;
+  }
+  else 
+  {
+    Node itr=head;
+    int c=0;
+    while(itr!=null){
+      c++;
+      if(c==pos-1){
+        newNode.next=itr.next;
+        itr.next.prev=newNode;
+        itr.next=newNode;
+        newNode.prev=itr;
+        break;
+      }
+      itr=itr.next;
+    }
+  }
+}
+  void display(){
+    Node itr=head;
+    while(itr!=null){
+      System.out.println(itr.prev+" "+itr.data+" "+itr.next);
+      itr=itr.next;
+    }
+  }
+}
+
+public class Main {
+    public static void main(String[] args) {
+    Scanner sc=new Scanner(System.in);
+    int n=sc.nextInt();
+    int num;
+    Doubly d=new Doubly();
+    for(int i=0;i<n;i++){
+      num=sc.nextInt();
+      d.create(num);
+    }
+    int val=sc.nextInt();
+    int pos=sc.nextInt();
+    d.display();
+    d.insert(val,pos,n);
+    }
+}
