@@ -1,0 +1,50 @@
+import java.util.*;
+class Node{
+  int data;
+  Node next;
+  Node(int data){
+    this.data=data;
+    this.next=null;
+  }
+}
+class CircularS{
+  Node head,tail;
+  CircularS(){
+    head=null;
+    tail=null;
+  }
+  void create(int num){
+  Node  newNode=new Node(num);
+  if(head==null){
+    head=newNode;
+    tail=newNode;
+  }
+  else{
+    tail.next=newNode;
+    tail=newNode;
+  }
+  tail.next=head;
+  }
+  
+  void display(){
+    Node itr=head;
+    do{
+      System.out.println(itr.data+" "+itr.next);
+      itr=itr.next;
+    }while(itr!=head);
+  }
+}
+
+public class Main {
+    public static void main(String[] args) {
+Scanner sc=new Scanner(System.in);
+int n=sc.nextInt();
+CircularS c=new CircularS();
+int num;
+for(int i=0;i<n;i++){
+  num=sc.nextInt();
+  c.create(num);
+}
+c.display();
+    }
+}
