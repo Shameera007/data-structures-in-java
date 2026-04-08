@@ -1,0 +1,62 @@
+import java.util.*;
+
+public class Main {
+  static char[] stack=new char[20];
+  static int top=-1;
+  static String postfix="";
+  static void push(char ch){
+    stack[++top]=ch;
+  }
+  static char pop(){
+   return stack[top--];
+    
+  }
+  static char peek(){
+    return stack[top];
+  }
+  static boolean isEmpty(){
+    return top==-1;
+  }
+  static int precedence(char c){
+    if(c=='*'||c=='/')
+     return 2;
+     else if(c=='+'||c=='-')
+      return 1;
+      else 
+      return 0;
+  }
+  static void isPostfix(String s){
+    for(int i=0;i<s.length();i++){
+      char c=s.charAt(i);
+      if(Character.isLetterOrDigit(c))
+         postfix+=c;
+      else if(c=='(')
+        push(c);
+      else if(c==')')
+        {
+          while(!isEmpty()&&peek()!='('){
+            postfix+=pop();
+          }
+          pop();
+        }
+        else if(c=='+'||c=='-'||c=='*'||c=='/'){
+          while(!isEmpty()&&precedence(peek())>=precedence(c))
+           {
+             postfix+=pop();
+           }
+           push(c);
+        }
+
+        
+    }
+            while(!isEmpty()){
+          postfix+=pop();
+        }
+    System.out.print(postfix);
+  }
+    public static void main(String[] args) {
+Scanner sc=new Scanner(System.in);
+String s=sc.nextLine();
+isPostfix(s);
+    }
+}
