@@ -1,0 +1,66 @@
+import java.util.*;
+class Queue{
+  int size;
+  int[] queue;
+  int front,rear;
+  Queue(int size){
+    this.size=size;
+    this.queue=new int[size];
+    this.front=-1;
+    this.rear=-1;
+  }
+  void enqueue(int num){
+    if(rear==size-1)
+       System.out.println("queue overflow");
+    else if(front==-1){
+        front=0;
+    }
+
+      queue[++rear]=num;
+      
+    
+  }
+  
+   void dequeue(){
+     if(front==-1 || front>rear)
+       System.out.println("queue underflow");
+      else{
+        System.out.println(queue[front++]);
+      }
+   }
+   void display(){
+     if(front==-1||front>rear)
+     {
+       System.out.print("queue underflow");
+       return;
+     }
+     for(int i=front;i<=rear;i++){
+       System.out.print(queue[i]+" ");
+     }
+     System.out.println();
+   }
+}
+public class Main {
+    public static void main(String[] args) {
+Scanner sc=new Scanner(System.in);
+int size=sc.nextInt();
+Queue q=new Queue(size);
+while(true){
+  int op=sc.nextInt();
+  switch(op){
+    case 1:
+      int num=sc.nextInt();
+      q.enqueue(num);
+      break;
+    case 2:
+      q.dequeue();
+      break;
+    case 3:
+      q.display();
+      break;
+    case 4:
+      return;
+  }
+}
+    }
+}
