@@ -1,0 +1,46 @@
+import java.util.*;
+class Post{
+  int[] stack=new int[50];
+  int top=-1;
+  void push(int n){
+   stack[++top]=n;
+  }
+  int pop(){
+    return stack[top--];
+  }
+   void evaluate(String s){
+     for(int i=0;i<s.length();i++){
+       char c=s.charAt(i);
+       if(Character.isDigit(c))
+       {
+         int n=c-'0';
+        push(n);
+       }
+       else{
+         int b=pop();
+         int a=pop();
+         if(c=='+') push(a+b);
+         if(c=='-') push(a-b);
+         if(c=='*') push(a*b);
+         if(c=='/'){
+         if(b==0)
+          {
+            System.out.print("error");
+            return;
+          }
+          push(a/b);
+         }
+          
+       }
+     }
+     System.out.print(stack[top]);
+   }
+}
+public class Main {
+    public static void main(String[] args) {
+    Scanner sc=new Scanner(System.in);
+    String s=sc.nextLine();
+    Post p=new Post();
+    p.evaluate(s);
+    }
+}
