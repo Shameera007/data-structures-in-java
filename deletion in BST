@@ -1,0 +1,75 @@
+import java.util.*;
+class Node{
+  int data;
+  Node left;
+  Node right;
+  Node(int data){
+    this.data=data;
+    this.left=null;
+    this.right=null;
+  }
+}
+class bst{
+  Node root=null;
+  Node create(Node root,int val){
+  if(root==null)
+    root=new Node(val);
+  if(root.data<val)
+    root.right=create(root.right,val);
+  if(root.data>val)
+   root.left=create(root.left,val);
+  return root;
+  }
+  int minElement(Node root){
+    int min=root.data;
+    while(root.left!=null){
+      root=root.left;
+      min=root.data;
+    }
+    return min;
+  }
+  Node delete(Node root,int val){
+    if(root.data<val)
+      root.right=delete(root.right,val);
+    else if(root.data>val)
+      root.left=delete(root.left,val);
+    else {
+      //leaf node
+      if(root.right==null && root.left==null)
+       return null;
+      else if(root.left!=null && root.right==null)
+       return root.left;
+      else if(root.right!=null && root.left==null)
+        return root.right;
+      else {
+        root.data=minElement(root.right);
+        root.right=delete(root.right,root.data);
+      }
+    }
+    return root;
+  }
+  void inorder(Node root){
+    if(root!=null){
+      inorder(root.left);
+      System.out.print(root.data+" ");
+      inorder(root.right);
+    }
+  }
+}
+public class Main {
+    public static void main(String[] args) {
+   Scanner sc=new Scanner(System.in);
+   int n=sc.nextInt();
+   bst tree=new bst();
+   for(int i=0;i<n;i++){
+     int num=sc.nextInt();
+     tree.root=tree.create(tree.root,num);
+   }
+   tree.inorder(tree.root);
+   System.out.println();
+   int val=sc.nextInt();
+   tree.delete(tree.root,val);
+   tree.inorder(tree.root);
+   System.out.println();
+    }
+}
