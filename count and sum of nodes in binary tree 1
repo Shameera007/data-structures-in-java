@@ -1,0 +1,52 @@
+import java.util.*;
+class Node{
+  int data;
+  Node left;
+  Node right;
+  Node(int data){
+    this.data=data;
+    this.left=null;
+    this.right=null;
+  }
+}
+
+public class Main {
+    public static Node BuildTree(Scanner sc){
+      int val=sc.nextInt();
+      if(val==-1)
+       return null;
+      Node root=new Node(val);
+      Queue<Node> q=new LinkedList<>();
+      q.add(root);
+      while(!q.isEmpty()){
+        Node temp=q.poll();
+        if(sc.hasNextInt()){
+          int leftval=sc.nextInt();
+          temp.left=new Node(leftval);
+          q.add(temp.left);
+        }
+        if(sc.hasNextInt()){
+          int rightval=sc.nextInt();
+          temp.right=new Node(rightval);
+          q.add(temp.left);
+        }
+      }
+      return root;
+    }
+    public static int sum(Node root){
+      if(root==null)
+        return 0;
+      return root.data+sum(root.left)+sum(root.right);
+    }
+     public static int count(Node root){
+      if(root==null)
+        return 0;
+      return 1+count(root.left)+count(root.right);
+    }
+    public static void main(String[] args) {
+     Scanner sc=new Scanner(System.in);
+     Node root=BuildTree(sc);
+     System.out.println(sum(root));
+      System.out.print(count(root));
+    }
+}
