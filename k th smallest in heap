@@ -1,0 +1,66 @@
+import java.util.*;
+class MinHeapSort{//inp:10 30 4 23 12 3 6 out:3 4 6 10 12 23 30
+int[] arr;
+  int size;
+  MinHeapSort(int n){
+    arr=new int[n];
+    this.size=n;
+  }
+  void create(int num,int i){
+    arr[i]=num;
+    heapifyUp(i);
+  }
+  void heapifyUp(int i){
+    int pr=(i-1)/2;
+    while(i>0 && arr[pr] > arr[i]){
+      int temp=arr[pr];
+      arr[pr]=arr[i];
+      arr[i]=temp;
+      i=pr;
+      pr=(i-1)/2;
+    }
+  }
+  void deletion(int k){
+    int count=0;
+    while(size!=0){
+      count++;
+      if(count==k){
+        System.out.print(arr[0]+" ");
+        break;
+      }
+    // System.out.print(arr[0]+" ");
+      arr[0]=arr[size-1];
+      size--;
+      heapifydown(0);
+    }
+    
+  }
+  void heapifydown(int index){
+    int left=(2*index)+1;
+    int right=(2*index)+2;
+    int small=index;
+    if(left<size && arr[left]<arr[small])
+      small=left;
+    if(right<size && arr[right]<arr[small])
+      small=right;
+    if(index!=small){
+      int temp=arr[index];
+      arr[index]=arr[small];
+      arr[small]=temp;
+      heapifydown(small);
+    }
+  }
+}
+public class Main {
+    public static void main(String[] args) {
+   Scanner sc=new Scanner(System.in);
+   int n=sc.nextInt();
+   MinHeapSort min=new MinHeapSort(n);
+   for(int i=0;i<n;i++){
+     int num=sc.nextInt();
+     min.create(num,i);
+   }
+   int k=sc.nextInt();
+   min.deletion(k);
+    }
+}
